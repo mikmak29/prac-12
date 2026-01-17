@@ -1,4 +1,4 @@
-import STATUS_CODES from "../constants/STATUS_CODE.js";
+import { STATUS_CODES } from "../constants/STATUS_CODE.js";
 
 const globalErrorHandler = (error, req, res, next) => {
     const statusCode = error.statusCode || 500;
@@ -9,6 +9,10 @@ const globalErrorHandler = (error, req, res, next) => {
         success: false,
         statusCode: statusCode,
         errorCode: matchedError.errorCode,
+        details: {
+            message: error.message,
+            path: error.path,
+        }
     };
 
     res.status(200).json(errorFound);

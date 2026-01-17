@@ -1,13 +1,8 @@
-const errorHandler = (req, res, next) => {
-    const errorResponse = {
-        success: false,
-        statusCode: statusCode,
-        errorCode: matchedError.errorCode,
-        message: `Route ${req.method} ${req.originalUrl} not found`,
-        timestamp: new Date().toISOString(),
-    };
-
-    next();
+const errorHandler = (errorMessage, statusCode, path) => {
+    const error = new Error(errorMessage);
+    error.statusCode = statusCode;
+    error.path = path;
+    throw error;
 };
 
 export default errorHandler;

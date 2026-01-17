@@ -1,4 +1,4 @@
-const STATUS_CODES = {
+export const STATUS_CODES = {
     400: {
         errorCode: "BAD_REQUEST",
     },
@@ -19,4 +19,4 @@ const STATUS_CODES = {
     },
 };
 
-export default STATUS_CODES;
+export const NOT_FOUND = 404;

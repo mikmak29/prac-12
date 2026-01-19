@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import errorHandler from "../middleware/errorHandler.js";
+import errorHandler from "../utils/errorHandler.js";
 
 dotenv.config();
 

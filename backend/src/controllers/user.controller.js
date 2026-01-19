@@ -4,10 +4,11 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
 import * as userService from '../services/user.service.js';
-import errorHandler from "../middleware/errorHandler.js";
+import errorHandler from "../utils/errorHandler.js";
 import ResponseHandler from '../utils/ResponseHandler.js';
 import { accessTokenHandler, refreshTokenHandler } from '../utils/accessToken.js';
 import userSchema from "../schemas/user.schema.js";
+import validateObjectId from "../utils/validateObjectId.js";
 
 dotenv.config();
 
@@ -57,7 +58,7 @@ export const registerUserData = asyncHandler(async (req, res) => {
 export const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await userService.loginUser( email );
 
     if (!user) {
         return errorHandler("Invalid credentials.", 401, "user.controller.js");
@@ -65,6 +66,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+        console.log(isMatch)
         return errorHandler("Invalid credentials.", 401, "user.controller.js");
     }
 
@@ -91,7 +93,7 @@ export const loginUser = asyncHandler(async (req, res) => {
         path: "/api/user/refreshToken"
     });
 
-    await User.updateOne({ _id: user._id }, { lastLogin: new Date() });
+    await userService.lastLoginUser(user._id);
 
     ResponseHandler(res, "success", 200, {
         message: "Login successfully.",
@@ -143,6 +145,25 @@ export const refreshToken = asyncHandler(async (req, res) => {
         return errorHandler(error.message, 401, "user.controller.js");
     }
 });
+
+export const updateUserData = asyncHandler(async (req, res) => {
+    const { id } = req.params
+
+    validateObjectId(id)
+
+    const user = await userService.isIdExist(id)
+
+    if (!user) {
+        return errorHandler("ID not found.", 404, "user.controller.js")
+    }
+
+    await userService.updateUser(id, req.body, true)
+
+    ResponseHandler(res, "success", 201, {
+        message: "Data updated successfully.",
+        data: null
+    })
+})
 
 export const currentUserData = asyncHandler(async (req, res) => {
     const userData = req.userData;

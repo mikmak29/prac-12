@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 
-import errorHandler from "./errorHandler.js";
+import errorHandler from "../utils/errorHandler.js";
 
 dotenv.config();
 

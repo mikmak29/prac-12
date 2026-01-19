@@ -9,5 +9,6 @@ route.post("/register", userController.registerUserData);
 route.post("/login", userController.loginUser);
 route.post("/refreshToken", userController.refreshToken);
 route.get("/userData", authToken, userController.currentUserData);
+route.put("/update/:id", authToken, userController.updateUserData)
 
 export default route;

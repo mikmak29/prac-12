@@ -1,4 +1,4 @@
-const NotFoundHandler = ((req, res, next) => {
+const errorURLHandler = ((req, res, next) => {
     return res.status(503).json({
         success: false,
         statusCode: 503,
@@ -10,4 +10,4 @@ const NotFoundHandler = ((req, res, next) => {
     });
 });
 
-export default NotFoundHandler;
+export default errorURLHandler;

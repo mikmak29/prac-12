@@ -7,7 +7,7 @@ import compression from 'compression';
 import express from 'express';
 
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
-import NotFoundHandler from './errors/NotFoundHandler.js';
+import errorURLHandler from './errors/errorURLHandler.js';
 import userRoute from './routes/user.routes.js';
 import connectDB from "./config/database.js";
 
@@ -24,7 +24,7 @@ app.use(compression());
 
 app.use("/api/user", userRoute); // -> route
 
-app.use(NotFoundHandler); // -> Handles unexpected writing of path
+app.use(errorURLHandler); // -> Handles unexpected writing of path
 app.use(globalErrorHandler);
 
 const serverStarter = asyncHandler(async () => {

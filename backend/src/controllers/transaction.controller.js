@@ -19,23 +19,14 @@ export const depositMoney = asyncHandler(async (req, res) => {
     const user = await transactionService.currentBalance(userEmail);
 
     if (user) {
-        await transactionService.depositHandler({
-            owner: req.userData?.email,
+        await transactionService.depositHandler(userEmail,{ 
             type,
             current_balance: user.current_balance + amount,
             status: "completed",
             reference_id: uuidv4()
         });
-
-        await transactionService.deletePreviousData(userEmail);
     } else {
-        await transactionService.depositHandler({
-            owner: req.userData?.email,
-            type,
-            current_balance: amount,
-            status: "completed",
-            reference_id: uuidv4()
-        });
+        return errorHandler("User not found", 404, "transaction.controller")
     }
 
 
@@ -64,15 +55,12 @@ export const withdrawMoney = asyncHandler(async (req, res) => {
         amountWithdraw = user.current_balance - amount;
     }
 
-    await transactionService.withdrawalHandler({
-        owner: userEmail,
+    await transactionService.withdrawalHandler( userEmail,{
         type,
         current_balance: amountWithdraw,
         status: "completed",
         reference_id: uuidv4()
     });
-
-    await transactionService.deletePreviousData(userEmail);
 
     ResponseHandler(res, "success", 201, {
         message: "You withdraw money successfully.",

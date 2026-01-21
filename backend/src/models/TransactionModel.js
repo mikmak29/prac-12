@@ -12,7 +12,7 @@ const transactionSchema = new mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['deposit', 'withdrawal'],
+            enum: ['pending','deposit', 'withdrawal'],
             required: true
         },
         current_balance: {

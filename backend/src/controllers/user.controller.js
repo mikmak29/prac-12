@@ -50,6 +50,14 @@ export const registerUserData = asyncHandler(async (req, res) => {
         isActive: true
     });
 
+    await transactionService.createData({
+        owner: email,
+        type: "pending",
+        current_balance: 0,
+        status: "pending",
+        reference_id: null
+    })
+
     ResponseHandler(res, "success", 201, {
         message: "Registered successfully",
         data: null,
@@ -96,9 +104,14 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     await userService.lastLoginUser(user._id);
 
+    const tokens = {
+        accessToken,
+        refreshToken
+    }
+
     ResponseHandler(res, "success", 200, {
         message: "Login successfully.",
-        data: null
+        data: tokens
     });
 });
 

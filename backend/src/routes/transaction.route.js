@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as transactionController from '../controllers/transaction.controller.js';
-import authToken from "../middleware/authToken.js";
+import authToken from "../middlewares/authToken.js";
 
 
 const route = express.Router();

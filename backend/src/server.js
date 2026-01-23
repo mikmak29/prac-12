@@ -6,7 +6,7 @@ import cookie from 'cookie-parser';
 import compression from 'compression';
 import express from 'express';
 
-import globalErrorHandler from "./middleware/globalErrorHandler.js";
+import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 import errorURLHandler from './errors/errorURLHandler.js';
 import userRoute from './routes/user.route.js';
 import transactionRoute from './routes/transaction.route.js';

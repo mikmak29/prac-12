@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import asyncHandler from "express-async-handler";
-import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 
 import * as userService from "../services/user.service.js";

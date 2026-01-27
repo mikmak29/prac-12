@@ -12,5 +12,6 @@ export const FILE_NAME = {
 		VALIDATE_REGISTER: "validateRegister",
 		VALIDATE_LOGIN: "validateLogin",
 		VALIDATE_REFRESHTOKEN: "validateRefreshToken",
+		VALIDATE_TRANSACTION: "validateTransaction",
 	},
 };

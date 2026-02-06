@@ -30,7 +30,7 @@ app.use("/api/user", userRoute); // -> route
 app.use("/api/transaction", transactionRoute);
 app.use("/api/logs", userLogRoute);
 
-app.use(errorURLHandler); // -> Handles unexpected writing of path
+app.use(errorURLHandler); // -> Handles unexpected writing of url
 app.use(globalErrorHandler);
 
 const serverStarter = asyncHandler(async () => {
